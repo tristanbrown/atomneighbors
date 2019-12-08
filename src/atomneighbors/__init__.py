@@ -1,0 +1,1 @@
+from atomneighbors.neighbors import NeighborFinder

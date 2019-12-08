@@ -1,7 +1,7 @@
 import argparse
 import logging
 
-
+from atomneighbors import NeighborFinder
 
 parser = argparse.ArgumentParser()
 parser.add_argument("path", help="Path of the input file")
@@ -14,6 +14,8 @@ def run():
     else:
         loglevel = logging.INFO
     logging.basicConfig(level=loglevel)
+    neighbors = NeighborFinder(args.path)
+    neighbors.find_all()
 
 if __name__ == "__main__":
     run()
