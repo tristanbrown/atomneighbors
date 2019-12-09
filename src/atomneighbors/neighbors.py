@@ -28,7 +28,8 @@ class NeighborFinder():
         """Generate n random nodes."""
         if n > 10000:
             raise ValueError(f"Too many nodes: {n}")
-        data = pd.DataFrame(np.random.uniform(-10**7, 10**7, size=(n, 3)), columns=list('xyz'))
+        limit = 10**7
+        data = pd.DataFrame(np.random.uniform(-limit, limit, size=(n, 3)), columns=list('xyz'))
         data.index = data.index.rename('ID') + 1
         data['buckets'] = self._hash(data)
         return data
@@ -59,7 +60,8 @@ class NeighborFinder():
         return [n, id1, ..., idn]
         """
         cands = self.candidates[row['buckets']].copy().drop(row.name, axis=0)
-        cands['dist'] = np.sqrt(np.sum([(cands[i] - row[i])**2 for i in ('x', 'y', 'z')], axis=0))
+        # cands['dist'] = np.sqrt(np.sum([(cands[i] - row[i])**2 for i in ('x', 'y', 'z')], axis=0))
+        cands['dist'] = np.sqrt((cands['x'] - row['x'])**2 + (cands['y'] - row['y'])**2 + (cands['z'] - row['z'])**2)
         final_cands = cands[cands['dist'] <= self.r]
         result = [len(final_cands)] + list(final_cands.index)
         return result

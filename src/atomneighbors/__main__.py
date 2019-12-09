@@ -5,7 +5,7 @@ import time
 from atomneighbors import NeighborFinder
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--path", "-p", help="Path of the input coordinates")
+parser.add_argument("--path", "-p", type=str, help="Path of the input coordinates")
 parser.add_argument("--radius", "-r", help="Search radius")
 parser.add_argument("--nrandom", "-n", help="Generate n random nodes")
 parser.add_argument("--debug", help="Turn on debug mode", action="store_true")
